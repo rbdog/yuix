@@ -1,0 +1,26 @@
+name: yui_kit
+description: UI Library
+version: 1.0.0
+homepage: https://github.com/rbdog/ui_router
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cron: ^0.5.0
+  intl: ^0.17.0
+  http: ^0.13.5
+  shared_preferences: ^2.0.15
+  jose: ^0.3.2
+  crypto: ^3.0.2
+  loading_animation_widget: ^1.2.0+3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
