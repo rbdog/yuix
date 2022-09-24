@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yui_kit/src/router/ui_task.dart';
+import 'package:yuix/src/router/ui_task.dart';
 
 /// LoadingLayer
 class LoadingLayer extends StatelessWidget {

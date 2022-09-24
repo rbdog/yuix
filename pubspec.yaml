@@ -1,7 +1,7 @@
-name: yui_kit
+name: yuix
 description: UI Library
 version: 1.0.0
-homepage: https://github.com/rbdog/ui_router
+homepage: https://github.com/rbdog/yuix
 
 environment:
   sdk: ">=2.17.6 <3.0.0"

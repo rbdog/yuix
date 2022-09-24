@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:html';
-import 'package:yui_kit/src/utils/lifecycle.dart';
+import 'package:yuix/src/utils/lifecycle.dart';
 
 /*
 void onLifecycleEvent(AppLifecycleState state) {

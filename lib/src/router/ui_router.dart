@@ -3,10 +3,10 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:yui_kit/src/router/real_path_to_route.dart';
-import 'package:yui_kit/src/router/ui_router_state.dart';
-import 'package:yui_kit/src/router/ui_task.dart';
-import 'package:yui_kit/src/router/ui_call.dart';
+import 'package:yuix/src/router/real_path_to_route.dart';
+import 'package:yuix/src/router/ui_router_state.dart';
+import 'package:yuix/src/router/ui_task.dart';
+import 'package:yuix/src/router/ui_call.dart';
 
 // Path
 typedef Path = String;

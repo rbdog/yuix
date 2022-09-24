@@ -3,8 +3,8 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:yui_kit/src/utils/app_cycle.dart';
-import 'package:yui_kit/src/utils/lifecycle_view.dart';
+import 'package:yuix/src/utils/app_cycle.dart';
+import 'package:yuix/src/utils/lifecycle_view.dart';
 
 class AppCycleView extends StatelessWidget {
   final AppCycle appCycle;

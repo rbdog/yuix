@@ -3,7 +3,7 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:yui_kit/src/router/ui_tab_router.dart';
+import 'package:yuix/src/router/ui_tab_router.dart';
 
 class UiTabRouterWidget extends StatefulWidget {
   final UiTabRouter router;

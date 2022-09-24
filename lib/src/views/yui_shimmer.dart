@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:yui_kit/src/views/yui_colors.dart';
+import 'package:yuix/src/views/yui_colors.dart';
 
 // MEMO: - Shimmer が PWA でチラつく問題 一時回避代替
 class YuiShimmer extends StatelessWidget {

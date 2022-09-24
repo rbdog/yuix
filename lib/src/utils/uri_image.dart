@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yui_kit/src/utils/image_uri.dart';
+import 'package:yuix/src/utils/image_uri.dart';
 
 /// URLから画像を表示する
 class UriImage extends StatelessWidget {

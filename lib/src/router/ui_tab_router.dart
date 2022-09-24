@@ -3,7 +3,7 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:yui_kit/src/router/ui_tab.dart';
+import 'package:yuix/src/router/ui_tab.dart';
 
 /// Router for Tab Pages
 class UiTabRouter {

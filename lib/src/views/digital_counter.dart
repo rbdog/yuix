@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:yui_kit/src/views/yui_colors.dart';
-import 'package:yui_kit/src/views/yui_fonts.dart';
+import 'package:yuix/src/views/yui_colors.dart';
+import 'package:yuix/src/views/yui_fonts.dart';
 
 class DigitalCounter extends StatelessWidget {
   final int count;

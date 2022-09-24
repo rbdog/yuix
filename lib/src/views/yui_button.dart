@@ -4,9 +4,9 @@
 // ignore_for_file: unused_element
 
 import 'package:flutter/material.dart';
-import 'package:yui_kit/src/views/yui_colors.dart';
-import 'package:yui_kit/src/views/yui_fonts.dart';
-import 'package:yui_kit/src/views/yui_button_type.dart';
+import 'package:yuix/src/views/yui_colors.dart';
+import 'package:yuix/src/views/yui_fonts.dart';
+import 'package:yuix/src/views/yui_button_type.dart';
 
 class _OkButton extends StatelessWidget {
   final String label;

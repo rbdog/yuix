@@ -2,9 +2,9 @@
 //
 //
 
-import 'package:yui_kit/src/utils/cron_center.dart';
-import 'package:yui_kit/src/utils/event_center.dart';
-import 'package:yui_kit/src/utils/lifecycle.dart';
+import 'package:yuix/src/utils/cron_center.dart';
+import 'package:yuix/src/utils/event_center.dart';
+import 'package:yuix/src/utils/lifecycle.dart';
 
 class AppCycle {
   final lifecycle = Lifecycle();

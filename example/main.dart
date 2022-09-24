@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yui_kit/yui.dart';
+import 'package:yuix/yuix.dart';
 
 void main() {
   final widget = UiRouterWidget(router);

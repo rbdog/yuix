@@ -3,11 +3,11 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:yui_kit/src/router/dialog_layer.dart';
-import 'package:yui_kit/src/router/loading_layer.dart';
-import 'package:yui_kit/src/router/page_layer.dart';
-import 'package:yui_kit/src/router/ui_router_state.dart';
-import 'package:yui_kit/src/router/ui_router.dart';
+import 'package:yuix/src/router/dialog_layer.dart';
+import 'package:yuix/src/router/loading_layer.dart';
+import 'package:yuix/src/router/page_layer.dart';
+import 'package:yuix/src/router/ui_router_state.dart';
+import 'package:yuix/src/router/ui_router.dart';
 
 /// UiRouterWidget
 class UiRouterWidget extends StatefulWidget {

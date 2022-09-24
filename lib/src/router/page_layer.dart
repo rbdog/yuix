@@ -3,8 +3,8 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:yui_kit/src/router/ui_route.dart';
-import 'package:yui_kit/src/router/ui_router.dart';
+import 'package:yuix/src/router/ui_route.dart';
+import 'package:yuix/src/router/ui_router.dart';
 
 /// PageLayer
 class PageLayer extends StatelessWidget {

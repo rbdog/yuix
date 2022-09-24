@@ -4,10 +4,10 @@
 // ignore_for_file: prefer_function_declarations_over_variables
 
 import 'package:flutter/material.dart';
-import 'package:yui_kit/src/views/yui_dialog_button.dart';
-import 'package:yui_kit/src/views/yui_colors.dart';
-import 'package:yui_kit/src/views/yui_fonts.dart';
-import 'package:yui_kit/src/views/yui_text.dart';
+import 'package:yuix/src/views/yui_dialog_button.dart';
+import 'package:yuix/src/views/yui_colors.dart';
+import 'package:yuix/src/views/yui_fonts.dart';
+import 'package:yuix/src/views/yui_text.dart';
 
 /// Dialog
 class YuiDialog extends StatelessWidget {

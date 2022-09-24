@@ -2,7 +2,7 @@
 //
 //
 
-import 'package:yui_kit/src/router/ui_call.dart';
+import 'package:yuix/src/router/ui_call.dart';
 
 /// UiRoute
 class UiRoute {

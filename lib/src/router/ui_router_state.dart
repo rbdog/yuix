@@ -2,8 +2,8 @@
 //
 //
 
-import 'package:yui_kit/src/router/ui_task.dart';
-import 'package:yui_kit/src/router/ui_route.dart';
+import 'package:yuix/src/router/ui_task.dart';
+import 'package:yuix/src/router/ui_route.dart';
 
 /// UiRouterState
 class UiRouterState {

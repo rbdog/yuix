@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:yui_kit/src/utils/app_error.dart';
+import 'package:yuix/src/utils/app_error.dart';
 
 class HttpServer {
   final String url;

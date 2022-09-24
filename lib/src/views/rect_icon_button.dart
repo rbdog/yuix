@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yui_kit/src/views/yui_colors.dart';
+import 'package:yuix/src/views/yui_colors.dart';
 
 class RectIconButton extends StatelessWidget {
   final double size;

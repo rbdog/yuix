@@ -1,6 +1,6 @@
 # UI Library
 
-https://pub.dev/packages/yui_kit
+https://pub.dev/packages/yuix
 
 ### memo
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:yui_kit/src/views/rect_icon_button.dart';
-import 'package:yui_kit/src/views/yui_colors.dart';
-import 'package:yui_kit/src/views/yui_fonts.dart';
+import 'package:yuix/src/views/rect_icon_button.dart';
+import 'package:yuix/src/views/yui_colors.dart';
+import 'package:yuix/src/views/yui_fonts.dart';
 
 class YuiStepper extends StatelessWidget {
   final int maxCount;

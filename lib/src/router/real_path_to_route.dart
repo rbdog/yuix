@@ -1,7 +1,7 @@
-import 'package:yui_kit/src/router/pattern_path_to_param_keys.dart';
-import 'package:yui_kit/src/router/path_utils.dart';
-import 'package:yui_kit/src/router/ui_route.dart';
-import 'package:yui_kit/src/router/ui_call.dart';
+import 'package:yuix/src/router/pattern_path_to_param_keys.dart';
+import 'package:yuix/src/router/path_utils.dart';
+import 'package:yuix/src/router/ui_route.dart';
+import 'package:yuix/src/router/ui_call.dart';
 
 /// ('/a/3', ['/a/:id', '/b/:name'], ['id', 'name'], call)
 UiRoute? realPathToRoute(
