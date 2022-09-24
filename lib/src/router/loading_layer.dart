@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:yuix/src/router/ui_task.dart';
+import 'package:yuix/src/router/yui_task.dart';
 
 /// LoadingLayer
 class LoadingLayer extends StatelessWidget {
-  final List<UiTask> tasks;
+  final List<YuiTask> tasks;
   final Widget Function(String label)? child;
   const LoadingLayer({
     required this.tasks,

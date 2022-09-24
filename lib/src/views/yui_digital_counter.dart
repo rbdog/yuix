@@ -3,9 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:yuix/src/views/yui_colors.dart';
 import 'package:yuix/src/views/yui_fonts.dart';
 
-class DigitalCounter extends StatelessWidget {
+class YuiDigitalCounter extends StatelessWidget {
   final int count;
-  const DigitalCounter(this.count, {Key? key}) : super(key: key);
+  const YuiDigitalCounter(this.count, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

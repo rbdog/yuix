@@ -117,7 +117,7 @@ class YuiDialog extends StatelessWidget {
     final previewView = preview != null
         ? Container(
             width: double.infinity,
-            margin: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             color: yuiWhite,
             alignment: Alignment.center,
             child: preview,

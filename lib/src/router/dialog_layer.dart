@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:yuix/src/router/ui_route.dart';
-import 'package:yuix/src/router/ui_router.dart';
+import 'package:yuix/src/router/yui_route.dart';
+import 'package:yuix/src/router/yui_router.dart';
 
 /// DialogLayer
 class DialogLayer extends StatelessWidget {
-  final List<UiRoute> routes; // 表示するダイアログ
-  final Map<Path, UiDialog> dialogs; // 全てのダイアログのデータ
+  final List<YuiRoute> routes; // 表示するダイアログ
+  final Map<Path, DialogBuilder> dialogs; // 全てのダイアログのデータ
   const DialogLayer({
     Key? key,
     required this.dialogs,
     required this.routes,
   }) : super(key: key);
 
-  Widget buildDialog(UiRoute route) {
-    final builder = dialogs[route.patternPath];
+  Widget buildDialog(YuiRoute route) {
+    final builder = dialogs[route.pattern];
 
     if (builder != null) {
       return builder(route.call!);
     } else {
       return Text(
-        'Not found UiDialog for: ${route.patternPath}',
+        'Not found UiDialog for: ${route.pattern}',
       );
     }
   }

@@ -3,13 +3,13 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:yuix/src/router/ui_route.dart';
-import 'package:yuix/src/router/ui_router.dart';
+import 'package:yuix/src/router/yui_route.dart';
+import 'package:yuix/src/router/yui_router.dart';
 
 /// PageLayer
 class PageLayer extends StatelessWidget {
-  final List<UiRoute> routes; // 現在の状態
-  final Map<Path, UiPage> pages; // 全てのページのデータ
+  final List<YuiRoute> routes; // 現在の状態
+  final Map<Path, PageBuilder> pages; // 全てのページのデータ
   final void Function() onPopPage;
 
   const PageLayer({
@@ -19,12 +19,12 @@ class PageLayer extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  MaterialPage buildPage(UiRoute route) {
-    final builder = pages[route.patternPath];
+  MaterialPage buildPage(YuiRoute route) {
+    final builder = pages[route.pattern];
     if (builder != null) {
       return MaterialPage(child: builder(route.params));
     } else {
-      throw Exception('Not found UiPage for: ${route.patternPath}');
+      throw Exception('Not found UiPage for: ${route.pattern}');
     }
   }
 

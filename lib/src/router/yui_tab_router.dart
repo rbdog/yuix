@@ -3,12 +3,12 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:yuix/src/router/ui_tab.dart';
+import 'package:yuix/src/router/yui_tab.dart';
 
 /// Router for Tab Pages
-class UiTabRouter {
+class YuiTabRouter {
   final String initialPath;
-  final List<UiTab> tabs;
+  final List<YuiTab> tabs;
   final Color tabBarColor;
   final double tabBarHeight;
   final Color indicatorColor;
@@ -17,7 +17,7 @@ class UiTabRouter {
   final ValueNotifier<String> state;
 
   /// Constructor
-  UiTabRouter({
+  YuiTabRouter({
     required this.initialPath,
     required this.tabs,
     this.tabBarColor = Colors.grey,

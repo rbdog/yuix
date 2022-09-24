@@ -2,14 +2,14 @@
 //
 //
 
-/// LoadingTask
-class UiTask {
+/// Task
+class YuiTask {
   /// Message Label
   final String label;
 
   /// Task Process
   final Function() action;
-  const UiTask({
+  const YuiTask({
     required this.label,
     required this.action,
   });

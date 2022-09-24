@@ -6,24 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:yuix/src/router/dialog_layer.dart';
 import 'package:yuix/src/router/loading_layer.dart';
 import 'package:yuix/src/router/page_layer.dart';
-import 'package:yuix/src/router/ui_router_state.dart';
-import 'package:yuix/src/router/ui_router.dart';
+import 'package:yuix/src/router/yui_router_state.dart';
+import 'package:yuix/src/router/yui_router.dart';
 
-/// UiRouterWidget
-class UiRouterWidget extends StatefulWidget {
-  final UiRouter router;
+/// YuiRouterView
+class YuiRouterView extends StatefulWidget {
+  final YuiRouter router;
 
-  const UiRouterWidget(
+  const YuiRouterView(
     this.router, {
     Key? key,
   }) : super(key: key);
 
   @override
-  State<UiRouterWidget> createState() => UiRouterWidgetState();
+  State<YuiRouterView> createState() => YuiRouterViewState();
 }
 
-class UiRouterWidgetState extends State<UiRouterWidget> {
-  late UiRouterState state;
+class YuiRouterViewState extends State<YuiRouterView> {
+  late YuiRouterState state;
 
   void updateState() {
     setState(() {

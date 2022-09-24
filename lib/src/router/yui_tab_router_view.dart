@@ -3,21 +3,21 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:yuix/src/router/ui_tab_router.dart';
+import 'package:yuix/src/router/yui_tab_router.dart';
 
-class UiTabRouterWidget extends StatefulWidget {
-  final UiTabRouter router;
+class YuiTabRouterView extends StatefulWidget {
+  final YuiTabRouter router;
 
-  const UiTabRouterWidget(
+  const YuiTabRouterView(
     this.router, {
     Key? key,
   }) : super(key: key);
 
   @override
-  State<UiTabRouterWidget> createState() => UiTabRouterWidgetState();
+  State<YuiTabRouterView> createState() => YuiTabRouterViewState();
 }
 
-class UiTabRouterWidgetState extends State<UiTabRouterWidget>
+class YuiTabRouterViewState extends State<YuiTabRouterView>
     with TickerProviderStateMixin {
   // Manage State as index
   late TabController tabController;

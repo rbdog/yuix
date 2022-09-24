@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:yuix/yuix.dart';
 
 void main() {
-  final widget = UiRouterWidget(router);
-  final app = MaterialApp(home: widget);
+  final view = YuiRouterView(router);
+  final app = MaterialApp(home: view);
   runApp(app);
 }
 
 // Router
-final router = UiRouter(
+final router = YuiRouter(
   pages: {
     '/a': (params) => pageA(),
     '/b': (params) => pageB(),
@@ -50,7 +50,7 @@ Widget pageB() {
 }
 
 // DialogX
-Widget dialogX(UiCall call) {
+Widget dialogX(YuiCall call) {
   return YuiDialog(
     title: 'YUI',
     description: 'Hello',

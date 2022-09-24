@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 
 /// Tab Page
-class UiTab {
+class YuiTab {
   final String path;
   final Color tabColor;
   final Color tabColorOnSelected;
@@ -16,7 +16,7 @@ class UiTab {
   final Color tabLabelColorOnSelected;
   final double tabLabelSize;
   final Widget Function() build;
-  const UiTab({
+  const YuiTab({
     required this.path,
     this.tabColor = Colors.white,
     this.tabColorOnSelected = Colors.blue,
