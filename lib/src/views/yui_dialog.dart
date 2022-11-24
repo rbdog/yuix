@@ -4,6 +4,8 @@
 // ignore_for_file: prefer_function_declarations_over_variables
 
 import 'package:flutter/material.dart';
+import 'package:yuix/src/router/yui_dialog_state.dart';
+import 'package:yuix/src/views/yui_button_type.dart';
 import 'package:yuix/src/views/yui_dialog_button.dart';
 import 'package:yuix/src/views/yui_colors.dart';
 import 'package:yuix/src/views/yui_fonts.dart';
@@ -11,18 +13,36 @@ import 'package:yuix/src/views/yui_text.dart';
 
 /// Dialog
 class YuiDialog extends StatelessWidget {
+  const YuiDialog({
+    this.title = 'title',
+    this.description = 'description',
+    this.preview,
+    this.buttons = const [],
+    Key? key,
+  }) : super(key: key);
+
   final String title;
   final String description;
   final Widget? preview;
   final List<YuiDialogButton> buttons;
 
-  const YuiDialog({
-    required this.title,
-    required this.description,
-    this.preview,
-    required this.buttons,
-    Key? key,
-  }) : super(key: key);
+  factory YuiDialog.test(YuiDialogState state) {
+    return YuiDialog(
+      title: 'Test',
+      description: 'Hello Yui Dialog',
+      buttons: [
+        // Button
+        YuiDialogButton.cancel(
+          onTap: () => state.sendTapEvent(YuiButtonType.ok),
+        ),
+
+        // Button
+        YuiDialogButton.ok(
+          onTap: () => state.sendTapEvent(YuiButtonType.cancel),
+        ),
+      ],
+    );
+  }
 
   Widget buttonSetView() {
     if (buttons.isEmpty) {

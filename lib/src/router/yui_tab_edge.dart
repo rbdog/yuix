@@ -1,0 +1,4 @@
+enum YuiTabEdge {
+  top,
+  bottom,
+}

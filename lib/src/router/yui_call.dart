@@ -1,22 +1,12 @@
 import 'dart:async';
 
+import 'package:yuix/src/views/yui_button_type.dart';
+
 class YuiCall {
-  final Map<String, String> params;
   final streamer = StreamController<String?>();
-  YuiCall(this.params);
+  final completer = Completer<YuiButtonType>();
 
-  /// Trigger event
-  void event([String? value]) {
-    streamer.sink.add(value);
-  }
-
-  /// Listen event
-  void onEvent(void Function(String? value) action) {
-    streamer.stream.listen((value) {
-      action(value);
-    });
-  }
-
+  /// dispose
   void dispose() {
     streamer.close();
   }

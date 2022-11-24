@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:yuix/src/router/yui_route.dart';
+import 'package:yuix/src/router/yui_dialog_state.dart';
 import 'package:yuix/src/router/yui_router.dart';
 
 /// DialogLayer
 class DialogLayer extends StatelessWidget {
-  final List<YuiRoute> routes; // 表示するダイアログ
-  final Map<Path, DialogBuilder> dialogs; // 全てのダイアログのデータ
+  final List<YuiDialogState> states;
+  final Map<Path, DialogBuilder> builders;
   const DialogLayer({
     Key? key,
-    required this.dialogs,
-    required this.routes,
+    required this.builders,
+    required this.states,
   }) : super(key: key);
 
-  Widget buildDialog(YuiRoute route) {
-    final builder = dialogs[route.pattern];
-
+  Widget buildDialog(YuiDialogState state) {
+    final builder = builders[state.pattern];
     if (builder != null) {
-      return builder(route.call!);
+      return builder(state);
     } else {
       return Text(
-        'Not found UiDialog for: ${route.pattern}',
+        'Not found UiDialog for: ${state.pattern}',
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (routes.isEmpty) {
+    if (states.isEmpty) {
       return const SizedBox.shrink();
     }
 
@@ -37,7 +36,7 @@ class DialogLayer extends StatelessWidget {
             backgroundColor: Colors.black.withOpacity(0.5),
             body: Center(
               child: SingleChildScrollView(
-                child: buildDialog(routes.first),
+                child: buildDialog(states.first),
               ),
             ),
           ),

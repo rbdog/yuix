@@ -3,63 +3,85 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:yuix/src/router/path2route.dart';
-import 'package:yuix/src/router/yui_router_state.dart';
+import 'package:yuix/src/router/path2pattern_params.dart';
+import 'package:yuix/src/router/yui_dialog_state.dart';
+import 'package:yuix/src/router/yui_page_state.dart';
+import 'package:yuix/src/router/yui_router_protocol.dart';
+import 'package:yuix/src/router/yui_nav_router_state.dart';
 import 'package:yuix/src/router/yui_task.dart';
-import 'package:yuix/src/router/yui_call.dart';
 
 // Path
 typedef Path = String;
 
 /// a Page
-typedef PageBuilder = Widget Function(Map<String, String> params);
+typedef PageBuilder = Widget Function(YuiPageState state);
 
 /// a Dialog
-typedef DialogBuilder = Widget Function(YuiCall call);
+typedef DialogBuilder = Widget Function(YuiDialogState state);
 
-/// Router for App UI
-class YuiRouter {
-  final Path rootPath;
-  final Map<Path, PageBuilder> pages;
-  final Map<Path, DialogBuilder> dialogs;
-  final ValueNotifier<YuiRouterState> state;
-
+/// Nav Router
+class YuiRouter implements YuiRouterProtocol {
   /// Constructor
   YuiRouter({
-    this.rootPath = '/',
+    String? initialPath,
     required this.pages,
     this.dialogs = const {},
-  }) : state = (() {
+  })  : state = (() {
           // init state
-          var rootRoute = path2route(
-            rootPath,
-            pages.keys.toList(),
-            false,
+          final path = initialPath ?? pages.keys.first;
+          final state = _createState(
+            path: path,
+            pages: pages,
           );
-          rootRoute ??= path2route(
-            pages.keys.first,
-            [pages.keys.first],
-            false,
-          )!;
-          return ValueNotifier(
-            YuiRouterState(
-              pageRoutes: [rootRoute],
-              dialogRoutes: [],
-              tasks: [],
-            ),
-          );
-        })();
+          return ValueNotifier(state);
+        })(),
+        initialPath = initialPath ?? pages.keys.first;
+
+  final Path initialPath;
+  final Map<Path, PageBuilder> pages;
+  final Map<Path, DialogBuilder> dialogs;
+  final ValueNotifier<YuiNavRouterState> state;
+
+  static YuiNavRouterState _createState({
+    required String path,
+    required Map<Path, PageBuilder> pages,
+  }) {
+    final patternParams = path2PatternParams(
+      path,
+      pages.keys.toList(),
+    );
+    if (patternParams == null) {
+      throw Exception('Not found page for $path');
+    }
+    final pageState = YuiPageState(
+      pattern: patternParams.pattern,
+      path: path,
+      params: patternParams.params,
+    );
+    return YuiNavRouterState(
+      pageStates: [pageState],
+      dialogStates: [],
+      tasks: [],
+    );
+  }
 
   /// Go to the next page
   void push(String path) {
-    final route = path2route(
+    final patternParams = path2PatternParams(
       path,
       pages.keys.toList(),
-      false,
-    )!;
-    final newState = YuiRouterState(
-      pageRoutes: [...state.value.pageRoutes, route],
-      dialogRoutes: state.value.dialogRoutes,
+    );
+    if (patternParams == null) {
+      throw Exception('Not found page for $path');
+    }
+    final pageState = YuiPageState(
+      pattern: patternParams.pattern,
+      path: path,
+      params: patternParams.params,
+    );
+    final newState = YuiNavRouterState(
+      pageStates: [...state.value.pageStates, pageState],
+      dialogStates: state.value.dialogStates,
       tasks: state.value.tasks,
     );
     state.value = newState;
@@ -67,16 +89,16 @@ class YuiRouter {
 
   /// Back page (until: pattern)
   void pop({String? until}) {
-    if (state.value.pageRoutes.length <= 1) return;
+    if (state.value.pageStates.length <= 1) return;
     final patternToPop = until ??
-        state.value.pageRoutes[state.value.pageRoutes.length - 2].pattern;
+        state.value.pageStates[state.value.pageStates.length - 2].pattern;
     final index =
-        state.value.pageRoutes.indexWhere((e) => e.pattern == patternToPop);
+        state.value.pageStates.indexWhere((e) => e.pattern == patternToPop);
     if (index < 0) return;
-    final newStack = state.value.pageRoutes.sublist(0, index + 1);
-    final newState = YuiRouterState(
-      pageRoutes: newStack,
-      dialogRoutes: state.value.dialogRoutes,
+    final newStack = state.value.pageStates.sublist(0, index + 1);
+    final newState = YuiNavRouterState(
+      pageStates: newStack,
+      dialogStates: state.value.dialogStates,
       tasks: state.value.tasks,
     );
     state.value = newState;
@@ -84,37 +106,51 @@ class YuiRouter {
 
   /// current path stack
   List<String> get pathStack {
-    final paths = state.value.pageRoutes.map((e) => e.path).toList();
+    final paths = state.value.pageStates.map((e) => e.path).toList();
     return paths;
   }
 
+  /// reset all state
+  void resetAllState() {
+    state.value = _createState(
+      path: initialPath,
+      pages: pages,
+    );
+  }
+
   /// Open dialog
-  YuiCall open(String path) {
-    final route = path2route(
+  YuiDialogState open(String path) {
+    final patternParams = path2PatternParams(
       path,
       dialogs.keys.toList(),
-      true,
-    )!;
-
-    final newState = YuiRouterState(
-      pageRoutes: state.value.pageRoutes,
-      dialogRoutes: [...state.value.dialogRoutes, route],
+    );
+    if (patternParams == null) {
+      throw Exception('Not found dialog for $path');
+    }
+    final dialogState = YuiDialogState(
+      pattern: patternParams.pattern,
+      path: path,
+      params: patternParams.params,
+    );
+    final newState = YuiNavRouterState(
+      pageStates: state.value.pageStates,
+      dialogStates: [...state.value.dialogStates, dialogState],
       tasks: state.value.tasks,
     );
     state.value = newState;
-    return route.call!;
+    return dialogState;
   }
 
   /// Close dialog
-  void close(YuiCall call) {
-    call.dispose();
-    if (state.value.dialogRoutes.isEmpty) return;
+  void close(YuiDialogState dialogState) {
+    dialogState.call.dispose();
+    if (state.value.dialogStates.isEmpty) return;
     final removeIndex =
-        state.value.dialogRoutes.indexWhere((e) => e.call == call);
-    final newRoutes = state.value.dialogRoutes..removeAt(removeIndex);
-    final newState = YuiRouterState(
-      pageRoutes: state.value.pageRoutes,
-      dialogRoutes: newRoutes,
+        state.value.dialogStates.indexWhere((e) => e.path == dialogState.path);
+    final newRoutes = state.value.dialogStates..removeAt(removeIndex);
+    final newState = YuiNavRouterState(
+      pageStates: state.value.pageStates,
+      dialogStates: newRoutes,
       tasks: state.value.tasks,
     );
     state.value = newState;
@@ -126,19 +162,19 @@ class YuiRouter {
     required Function() task,
   }) async {
     final loadingTask = YuiTask(label: label, action: task);
-    final preState = YuiRouterState(
-      pageRoutes: state.value.pageRoutes,
-      dialogRoutes: state.value.dialogRoutes,
+    final prevState = YuiNavRouterState(
+      pageStates: state.value.pageStates,
+      dialogStates: state.value.dialogStates,
       tasks: [...state.value.tasks, loadingTask],
     );
-    state.value = preState;
+    state.value = prevState;
     // await task action
     await loadingTask.action();
-    final postState = YuiRouterState(
-      pageRoutes: state.value.pageRoutes,
-      dialogRoutes: state.value.dialogRoutes,
+    final nextState = YuiNavRouterState(
+      pageStates: state.value.pageStates,
+      dialogStates: state.value.dialogStates,
       tasks: state.value.tasks..remove(loadingTask),
     );
-    state.value = postState;
+    state.value = nextState;
   }
 }

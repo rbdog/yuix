@@ -5,15 +5,36 @@ import 'package:yuix/src/views/yui_button_type.dart';
 
 /// Button in Dialogs
 class YuiDialogButton extends StatelessWidget {
-  final YuiButtonType type;
-  final String label;
-  final void Function() onTap;
   const YuiDialogButton({
     Key? key,
-    required this.type,
-    required this.label,
-    required this.onTap,
+    this.type = YuiButtonType.ok,
+    this.label = '',
+    this.onTap,
   }) : super(key: key);
+
+  final YuiButtonType type;
+  final String label;
+  final void Function()? onTap;
+
+  factory YuiDialogButton.cancel({
+    void Function()? onTap,
+  }) {
+    return YuiDialogButton(
+      type: YuiButtonType.cancel,
+      label: 'Cancel',
+      onTap: onTap,
+    );
+  }
+
+  factory YuiDialogButton.ok({
+    void Function()? onTap,
+  }) {
+    return YuiDialogButton(
+      type: YuiButtonType.ok,
+      label: 'OK',
+      onTap: onTap,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

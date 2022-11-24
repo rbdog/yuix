@@ -10,3 +10,8 @@
 
 - Add: HttpApi
 - Add: HttpServer
+
+## 2.0.0
+
+- Add: YuiTabRouter
+- (breaking) refactor some class names

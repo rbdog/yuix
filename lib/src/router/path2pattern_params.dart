@@ -1,13 +1,23 @@
 import 'package:yuix/src/router/pattern2param_keys.dart';
 import 'package:yuix/src/router/path_utils.dart';
-import 'package:yuix/src/router/yui_route.dart';
+import 'package:yuix/src/router/pattern_params.dart';
+import 'package:yuix/src/router/yui_dialog_state.dart';
 import 'package:yuix/src/router/yui_call.dart';
 
-/// ('/a/3', ['/a/:id', '/b/:name'], ['id', 'name'], call)
-YuiRoute? path2route(
+/// (
+///   '/a/3',
+///   ['/a/:id', '/b/:name'],
+/// )
+///
+///   =>
+///
+/// (
+///   '/a/:id',
+///   {'id': 3},
+/// )
+PatternParams? path2PatternParams(
   String path, // '/a/3'
   List<String> patterns, // ['/a/:id', '/b/:name']
-  bool withCall,
 ) {
   // 一致するパターンのパスを探す
   for (final pattern in patterns) {
@@ -26,14 +36,9 @@ YuiRoute? path2route(
     var match = regExp.firstMatch(path)!;
     final params = extractPathParameters(paramKeys, match);
 
-    // UiRoute
-    final route = YuiRoute(
+    return PatternParams(
       pattern: pattern,
       params: params,
-      call: withCall ? YuiCall(params) : null,
-      path: path,
     );
-    return route;
   }
-  return null;
 }

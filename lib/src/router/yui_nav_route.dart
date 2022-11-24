@@ -3,27 +3,26 @@
 //
 
 import 'package:flutter/material.dart';
+import 'package:yuix/src/router.dart';
 import 'package:yuix/src/router/dialog_layer.dart';
 import 'package:yuix/src/router/loading_layer.dart';
 import 'package:yuix/src/router/page_layer.dart';
-import 'package:yuix/src/router/yui_router_state.dart';
-import 'package:yuix/src/router/yui_router.dart';
+import 'package:yuix/src/router/yui_nav_router_state.dart';
 
-/// YuiRouterView
-class YuiRouterView extends StatefulWidget {
-  final YuiRouter router;
-
-  const YuiRouterView(
+class YuiNavRoute extends StatefulWidget {
+  const YuiNavRoute(
     this.router, {
     Key? key,
   }) : super(key: key);
 
+  final YuiRouter router;
+
   @override
-  State<YuiRouterView> createState() => YuiRouterViewState();
+  State<YuiNavRoute> createState() => YuiNavRouteState();
 }
 
-class YuiRouterViewState extends State<YuiRouterView> {
-  late YuiRouterState state;
+class YuiNavRouteState extends State<YuiNavRoute> {
+  late YuiNavRouterState state;
 
   void updateState() {
     setState(() {
@@ -49,13 +48,13 @@ class YuiRouterViewState extends State<YuiRouterView> {
     final stack = Stack(
       children: [
         PageLayer(
-          pages: widget.router.pages,
-          routes: state.pageRoutes,
+          builders: widget.router.pages,
+          states: state.pageStates,
           onPopPage: () => widget.router.pop(),
         ),
         DialogLayer(
-          dialogs: widget.router.dialogs,
-          routes: state.dialogRoutes,
+          builders: widget.router.dialogs,
+          states: state.dialogStates,
         ),
         LoadingLayer(
           tasks: state.tasks,

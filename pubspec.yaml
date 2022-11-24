@@ -1,6 +1,6 @@
 name: yuix
-description: UI Library
-version: 1.0.2
+description: Simple GoRouter Alternative & more
+version: 2.0.0
 homepage: https://github.com/rbdog/yuix
 
 environment:
