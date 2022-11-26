@@ -15,3 +15,9 @@
 
 - Add: YuiTabRouter
 - (breaking) refactor some class names
+
+## 2.1.0
+
+- add YuiTabBarStyle
+- add YuiTabEdge
+  

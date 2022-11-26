@@ -2,40 +2,56 @@
 //
 //
 
-import 'package:yuix/src/router/yui_call.dart';
-import 'package:yuix/src/views/yui_button_type.dart';
+import 'dart:async';
+
+import 'package:yuix/src/router/yui_button_type.dart';
 
 class YuiDialogState {
   YuiDialogState({
     required this.pattern,
     required this.path,
     required this.params,
-  }) : call = YuiCall();
+  });
 
+  /// custom event completer
+  final streamer = StreamController<String?>();
+
+  /// button action completer
+  final completer = Completer<YuiButtonType>();
+
+  /// pattern path
   final String pattern;
+
+  /// real path
   final String path;
+
+  /// path params
   final Map<String, String> params;
-  final YuiCall call;
 
   /// Trigger event
   void send([String? value]) {
-    call.streamer.sink.add(value);
+    streamer.sink.add(value);
   }
 
   /// Listen event
   void receive(void Function(String? value) action) {
-    call.streamer.stream.listen((value) {
+    streamer.stream.listen((value) {
       action(value);
     });
   }
 
   /// wait button tap event
-  Future<YuiButtonType> receiveTapEvent() {
-    return call.completer.future;
+  Future<YuiButtonType> receiveButtonEvent() {
+    return completer.future;
   }
 
   /// send button tap event
-  void sendTapEvent(YuiButtonType type) {
-    call.completer.complete(type);
+  void sendButtonEvent(YuiButtonType type) {
+    completer.complete(type);
+  }
+
+  /// dispose
+  void dispose() {
+    streamer.close();
   }
 }

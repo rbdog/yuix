@@ -3,24 +3,27 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:yuix/src/router.dart';
 import 'package:yuix/src/router/dialog_layer.dart';
 import 'package:yuix/src/router/loading_layer.dart';
 import 'package:yuix/src/router/page_layer.dart';
+import 'package:yuix/src/router/yui_nav_router.dart';
 import 'package:yuix/src/router/yui_nav_router_state.dart';
 
+/// YuiNavRoute
 class YuiNavRoute extends StatefulWidget {
   const YuiNavRoute(
     this.router, {
     Key? key,
   }) : super(key: key);
 
-  final YuiRouter router;
+  /// router
+  final YuiNavRouter router;
 
   @override
   State<YuiNavRoute> createState() => YuiNavRouteState();
 }
 
+/// YuiNavRouteState
 class YuiNavRouteState extends State<YuiNavRoute> {
   late YuiNavRouterState state;
 

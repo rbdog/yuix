@@ -1,8 +1,6 @@
 import 'package:yuix/src/router/pattern2param_keys.dart';
 import 'package:yuix/src/router/path_utils.dart';
 import 'package:yuix/src/router/pattern_params.dart';
-import 'package:yuix/src/router/yui_dialog_state.dart';
-import 'package:yuix/src/router/yui_call.dart';
 
 /// (
 ///   '/a/3',
@@ -41,4 +39,5 @@ PatternParams? path2PatternParams(
       params: params,
     );
   }
+  return null;
 }

@@ -2,31 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:yuix/src/router/yui_tab_state.dart';
 import 'package:yuix/src/router/yui_tab_router.dart';
 import 'package:yuix/src/views/yui_tab_bar_item.dart';
+import 'package:yuix/src/views/yui_tab_bar_style.dart';
+import 'package:yuix/src/views/yui_tab_item.dart';
 
 class YuiTabBar extends StatefulWidget {
   const YuiTabBar(
-    this.tabRouter, {
+    this.router, {
     super.key,
-  });
+    YuiTabBarStyle? style,
+  }) : style = style ?? const YuiTabBarStyle();
 
-  final YuiTabRouter tabRouter;
+  final YuiTabRouter router;
+  final YuiTabBarStyle style;
 
   @override
   State<YuiTabBar> createState() => _YuiTabBarState();
 }
 
 class _YuiTabBarState extends State<YuiTabBar> {
-  YuiTabRouter get tabRouter => widget.tabRouter;
+  YuiTabRouter get router => widget.router;
 
   @override
   void initState() {
     super.initState();
-    widget.tabRouter.state.addListener(updateState);
+    widget.router.state.addListener(updateState);
   }
 
   @override
   void dispose() {
-    widget.tabRouter.state.removeListener(updateState);
+    widget.router.state.removeListener(updateState);
     super.dispose();
   }
 
@@ -39,9 +43,9 @@ class _YuiTabBarState extends State<YuiTabBar> {
   Widget build(BuildContext context) {
     final layoutBuilder = LayoutBuilder(
       builder: (context, constraints) {
-        final itemWidth = constraints.maxWidth / tabRouter.pages.length;
-        final itemHeight = tabRouter.tabBarStyle.height;
-        final paths = tabRouter.pages.keys.toList();
+        final itemWidth = constraints.maxWidth / router.pages.length;
+        final itemHeight = widget.style.height;
+        final paths = router.pages.keys.toList();
 
         final row = Row(
           mainAxisSize: MainAxisSize.min,
@@ -49,23 +53,37 @@ class _YuiTabBarState extends State<YuiTabBar> {
             paths.length,
             (index) {
               final path = paths[index];
-              final isSelected = tabRouter.selectedIndex == index;
+              final isSelected = router.selectedIndex == index;
               final itemState = YuiTabState(
                 index: index,
                 isSelected: isSelected,
                 path: path,
               );
-              final itemBuilder = tabRouter.items?[path];
+              final itemColor = isSelected
+                  ? widget.style.selectedItemColor
+                  : widget.style.itemColor;
+              final itemChildBuilder = router.items?[path];
+              final itemChildColor = isSelected
+                  ? widget.style.selectedItemChildColor
+                  : widget.style.itemChildColor;
+              final defaultItemChild = YuiTabItem(
+                icon: const Icon(Icons.circle),
+                text: Text(path),
+              );
+              final itemChild =
+                  itemChildBuilder?.call(itemState) ?? defaultItemChild;
 
-              return SizedBox(
+              return Container(
                 width: itemWidth,
                 height: itemHeight,
+                color: itemColor,
                 child: YuiTabBarItem(
                   onTap: () {
-                    tabRouter.select(path);
+                    router.select(path);
                   },
-                  state: itemState,
-                  builder: itemBuilder,
+                  color: itemColor,
+                  childColor: itemChildColor,
+                  child: itemChild,
                 ),
               );
             },
@@ -77,7 +95,8 @@ class _YuiTabBarState extends State<YuiTabBar> {
     );
 
     return Material(
-      elevation: 20,
+      color: widget.style.color,
+      elevation: widget.style.elevation,
       child: layoutBuilder,
     );
   }

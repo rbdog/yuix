@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:yuix/src/router/yui_page_state.dart';
-import 'package:yuix/src/router/yui_router.dart';
+import 'package:yuix/src/router/yui_nav_router.dart';
 
 /// PageLayer
 class PageLayer extends StatelessWidget {

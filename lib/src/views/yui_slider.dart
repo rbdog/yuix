@@ -320,7 +320,7 @@ void main() {
     onRounded: (index) {
       debugPrint(index.toString());
     },
-    labels: [
+    labels: const [
       Text('1'),
       Text('2'),
       Text('3'),

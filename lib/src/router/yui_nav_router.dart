@@ -20,9 +20,9 @@ typedef PageBuilder = Widget Function(YuiPageState state);
 typedef DialogBuilder = Widget Function(YuiDialogState state);
 
 /// Nav Router
-class YuiRouter implements YuiRouterProtocol {
+class YuiNavRouter implements YuiRouterProtocol {
   /// Constructor
-  YuiRouter({
+  YuiNavRouter({
     String? initialPath,
     required this.pages,
     this.dialogs = const {},
@@ -143,7 +143,7 @@ class YuiRouter implements YuiRouterProtocol {
 
   /// Close dialog
   void close(YuiDialogState dialogState) {
-    dialogState.call.dispose();
+    dialogState.dispose();
     if (state.value.dialogStates.isEmpty) return;
     final removeIndex =
         state.value.dialogStates.indexWhere((e) => e.path == dialogState.path);

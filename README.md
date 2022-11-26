@@ -53,7 +53,7 @@ router.pop(until: '/a');
 final dialog = router.open('/x');
 
 // wait event
-await dialog.receiveTapEvent();
+await dialog.receiveButtonEvent();
 
 // close
 router.close(dialog);
@@ -75,9 +75,8 @@ main
 
 ```
 main() {
-  final route = YuiRoute.tabs(tabRouter),
-  final app = MaterialApp(home: widget);
-  runApp(app);
+  final route = YuiTabRoute(tabRouter),
+  ...
 }
 ```
 

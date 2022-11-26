@@ -5,7 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:yuix/src/router/yui_dialog_state.dart';
-import 'package:yuix/src/views/yui_button_type.dart';
+import 'package:yuix/src/router/yui_button_type.dart';
 import 'package:yuix/src/views/yui_dialog_button.dart';
 import 'package:yuix/src/views/yui_colors.dart';
 import 'package:yuix/src/views/yui_fonts.dart';
@@ -33,12 +33,12 @@ class YuiDialog extends StatelessWidget {
       buttons: [
         // Button
         YuiDialogButton.cancel(
-          onTap: () => state.sendTapEvent(YuiButtonType.ok),
+          onTap: () => state.sendButtonEvent(YuiButtonType.ok),
         ),
 
         // Button
         YuiDialogButton.ok(
-          onTap: () => state.sendTapEvent(YuiButtonType.cancel),
+          onTap: () => state.sendButtonEvent(YuiButtonType.cancel),
         ),
       ],
     );

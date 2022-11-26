@@ -3,13 +3,14 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:yuix/src/router/yui_router.dart';
+import 'package:yuix/src/router/yui_nav_router.dart';
 import 'package:yuix/src/router/yui_router_protocol.dart';
 import 'package:yuix/src/router/yui_tab_state.dart';
-import 'package:yuix/src/router/yui_tab_edge.dart';
-import 'package:yuix/src/views/yui_tab_bar_style.dart';
 
+/// TabPageBuilder
 typedef TabPageBuilder = Widget Function(YuiTabState state);
+
+/// TabBarItemBuilder
 typedef TabBarItemBuilder = Widget Function(YuiTabState state);
 
 /// Router for Tab Pages
@@ -18,16 +19,13 @@ class YuiTabRouter implements YuiRouterProtocol {
     String? initialPath,
     required this.pages,
     this.items,
-    this.edge = YuiTabEdge.bottom,
-    YuiTabBarStyle? tabBarStyle,
   })  : state = (() {
           // init state
           final paths = pages.keys.toList();
           final path = initialPath ?? paths.first;
           return ValueNotifier(path);
         })(),
-        initialPath = initialPath ?? pages.keys.toList().first,
-        tabBarStyle = tabBarStyle ?? YuiTabBarStyle();
+        initialPath = initialPath ?? pages.keys.toList().first;
 
   /// selected path
   final ValueNotifier<String> state;
@@ -36,21 +34,16 @@ class YuiTabRouter implements YuiRouterProtocol {
   final String initialPath;
   final Map<Path, TabPageBuilder> pages;
   final Map<Path, TabBarItemBuilder>? items;
-  final YuiTabEdge? edge;
-  final YuiTabBarStyle tabBarStyle;
 
   /// Tab Page ID
   String get selectedPath => state.value;
 
+  /// selected index
   int get selectedIndex {
     final index = pages.keys.toList().indexWhere(
           (e) => e == selectedPath,
         );
     return index;
-  }
-
-  int get initialIndex {
-    return pages.keys.toList().indexOf(initialPath);
   }
 
   /// Switch Tab

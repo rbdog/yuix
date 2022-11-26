@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yuix/src/router/yui_dialog_state.dart';
-import 'package:yuix/src/router/yui_router.dart';
+import 'package:yuix/src/router/yui_nav_router.dart';
 
 /// DialogLayer
 class DialogLayer extends StatelessWidget {

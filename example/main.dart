@@ -10,9 +10,9 @@ void main() {
 // Main Router
 final router = YuiRouter(
   pages: {
-    '/a': (state) => MyPageA(),
-    '/b': (state) => MyPageB(),
-    '/c': (state) => YuiRoute.tabs(tabRouter), // nested
+    '/a': (state) => const MyPageA(),
+    '/b': (state) => const MyPageB(),
+    '/c': (state) => YuiTabRoute(tabRouter),
   },
   dialogs: {
     '/x': (state) => MyDialogX(state),
@@ -23,15 +23,14 @@ final router = YuiRouter(
 final tabRouter = YuiTabRouter(
   pages: {
     // body pages
-    '/p': (state) => MyPageP(),
-    '/q': (state) => MyPageQ(),
+    '/p': (state) => const MyPageP(),
+    '/q': (state) => const MyPageQ(),
   },
   items: {
     // bar items
-    '/p': (state) => YuiTabItem(state, icon: Icon(Icons.star)),
-    '/q': (state) => YuiTabItem(state),
+    '/p': (state) => YuiTabItem(text: Text(state.path)),
+    '/q': (state) => YuiTabItem(text: Text(state.path)),
   },
-  edge: YuiTabEdge.bottom, // top or bottom
 );
 
 //
@@ -50,6 +49,8 @@ final tabRouter = YuiTabRouter(
 
 // A
 class MyPageA extends StatelessWidget {
+  const MyPageA({super.key});
+
   @override
   Widget build(BuildContext context) {
     final buttons = [
@@ -77,7 +78,7 @@ class MyPageA extends StatelessWidget {
       ElevatedButton(
         onPressed: () async {
           final dialog = router.open('/x');
-          final result = await dialog.receiveTapEvent();
+          final result = await dialog.receiveButtonEvent();
           router.close(dialog);
 
           /* receive OK */
@@ -115,6 +116,8 @@ class MyPageA extends StatelessWidget {
 
 // B
 class MyPageB extends StatelessWidget {
+  const MyPageB({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,6 +128,8 @@ class MyPageB extends StatelessWidget {
 
 // P
 class MyPageP extends StatelessWidget {
+  const MyPageP({super.key});
+
   @override
   Widget build(BuildContext context) {
     final buttons = [
@@ -151,6 +156,8 @@ class MyPageP extends StatelessWidget {
 
 // Q
 class MyPageQ extends StatelessWidget {
+  const MyPageQ({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -163,7 +170,7 @@ class MyPageQ extends StatelessWidget {
 
 // X
 class MyDialogX extends StatelessWidget {
-  const MyDialogX(this.state);
+  const MyDialogX(this.state, {super.key});
   final YuiDialogState state;
 
   @override

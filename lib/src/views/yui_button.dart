@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:yuix/src/views/yui_colors.dart';
 import 'package:yuix/src/views/yui_fonts.dart';
-import 'package:yuix/src/views/yui_button_type.dart';
+import 'package:yuix/src/router/yui_button_type.dart';
 
 class _OkButton extends StatelessWidget {
   final String label;
@@ -31,8 +31,8 @@ class _OkButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          primary: color,
-          onPrimary: color,
+          backgroundColor: color,
+          foregroundColor: color,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -78,7 +78,7 @@ class _CancelButton extends StatelessWidget {
       height: height,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          primary: yuiSystemBlue,
+          backgroundColor: yuiSystemBlue,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
