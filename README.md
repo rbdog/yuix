@@ -117,5 +117,22 @@ router.loading(
 );
 ```
 
+# Drawer
+
+```
+// init
+final router = YuiRouter(
+  ...
+  drawer: () => MyDrawer(),
+);
+
+
+// slide in drawer
+router.slideIn();
+
+// slide out drawer 
+router.slideOut();
+```
+
 😄 Using Navigator 2.0\
 🎉 Contributions, issues are welcomed!

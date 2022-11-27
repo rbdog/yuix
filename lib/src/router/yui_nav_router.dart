@@ -26,6 +26,7 @@ class YuiNavRouter implements YuiRouterProtocol {
     String? initialPath,
     required this.pages,
     this.dialogs = const {},
+    this.drawer,
   })  : state = (() {
           // init state
           final path = initialPath ?? pages.keys.first;
@@ -40,7 +41,9 @@ class YuiNavRouter implements YuiRouterProtocol {
   final Path initialPath;
   final Map<Path, PageBuilder> pages;
   final Map<Path, DialogBuilder> dialogs;
+  final Widget Function()? drawer;
   final ValueNotifier<YuiNavRouterState> state;
+  final drawerKey = GlobalKey<ScaffoldState>();
 
   static YuiNavRouterState _createState({
     required String path,
@@ -62,6 +65,7 @@ class YuiNavRouter implements YuiRouterProtocol {
       pageStates: [pageState],
       dialogStates: [],
       tasks: [],
+      drawerIsOpen: false,
     );
   }
 
@@ -83,6 +87,7 @@ class YuiNavRouter implements YuiRouterProtocol {
       pageStates: [...state.value.pageStates, pageState],
       dialogStates: state.value.dialogStates,
       tasks: state.value.tasks,
+      drawerIsOpen: state.value.drawerIsOpen,
     );
     state.value = newState;
   }
@@ -100,6 +105,7 @@ class YuiNavRouter implements YuiRouterProtocol {
       pageStates: newStack,
       dialogStates: state.value.dialogStates,
       tasks: state.value.tasks,
+      drawerIsOpen: state.value.drawerIsOpen,
     );
     state.value = newState;
   }
@@ -136,6 +142,7 @@ class YuiNavRouter implements YuiRouterProtocol {
       pageStates: state.value.pageStates,
       dialogStates: [...state.value.dialogStates, dialogState],
       tasks: state.value.tasks,
+      drawerIsOpen: state.value.drawerIsOpen,
     );
     state.value = newState;
     return dialogState;
@@ -152,6 +159,29 @@ class YuiNavRouter implements YuiRouterProtocol {
       pageStates: state.value.pageStates,
       dialogStates: newRoutes,
       tasks: state.value.tasks,
+      drawerIsOpen: state.value.drawerIsOpen,
+    );
+    state.value = newState;
+  }
+
+  /// drawer in
+  void slideIn() {
+    final newState = YuiNavRouterState(
+      pageStates: state.value.pageStates,
+      dialogStates: state.value.dialogStates,
+      tasks: state.value.tasks,
+      drawerIsOpen: true,
+    );
+    state.value = newState;
+  }
+
+  /// drawer out
+  void slideOut() {
+    final newState = YuiNavRouterState(
+      pageStates: state.value.pageStates,
+      dialogStates: state.value.dialogStates,
+      tasks: state.value.tasks,
+      drawerIsOpen: false,
     );
     state.value = newState;
   }
@@ -166,6 +196,7 @@ class YuiNavRouter implements YuiRouterProtocol {
       pageStates: state.value.pageStates,
       dialogStates: state.value.dialogStates,
       tasks: [...state.value.tasks, loadingTask],
+      drawerIsOpen: state.value.drawerIsOpen,
     );
     state.value = prevState;
     // await task action
@@ -174,6 +205,7 @@ class YuiNavRouter implements YuiRouterProtocol {
       pageStates: state.value.pageStates,
       dialogStates: state.value.dialogStates,
       tasks: state.value.tasks..remove(loadingTask),
+      drawerIsOpen: state.value.drawerIsOpen,
     );
     state.value = nextState;
   }

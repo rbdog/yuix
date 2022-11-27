@@ -32,7 +32,7 @@ class _OkButton extends StatelessWidget {
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
-          foregroundColor: color,
+          foregroundColor: yuiWhite,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -78,7 +78,8 @@ class _CancelButton extends StatelessWidget {
       height: height,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          backgroundColor: yuiSystemBlue,
+          backgroundColor: yuiWhite,
+          foregroundColor: yuiSystemBlue,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

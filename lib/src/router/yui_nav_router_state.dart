@@ -11,10 +11,12 @@ class YuiNavRouterState {
   final List<YuiPageState> pageStates;
   final List<YuiDialogState> dialogStates;
   final List<YuiTask> tasks;
+  final bool drawerIsOpen;
 
   YuiNavRouterState({
     required this.pageStates,
     required this.dialogStates,
     required this.tasks,
+    required this.drawerIsOpen,
   });
 }

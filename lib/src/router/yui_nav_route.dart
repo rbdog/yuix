@@ -28,9 +28,17 @@ class YuiNavRouteState extends State<YuiNavRoute> {
   late YuiNavRouterState state;
 
   void updateState() {
+    final oldState = state;
+    final newState = widget.router.state.value;
     setState(() {
-      state = widget.router.state.value;
+      state = newState;
     });
+    if (!oldState.drawerIsOpen && newState.drawerIsOpen) {
+      widget.router.drawerKey.currentState?.openDrawer();
+    }
+    if (oldState.drawerIsOpen && !newState.drawerIsOpen) {
+      widget.router.drawerKey.currentState?.closeDrawer();
+    }
   }
 
   @override
@@ -48,13 +56,28 @@ class YuiNavRouteState extends State<YuiNavRoute> {
 
   @override
   Widget build(BuildContext context) {
+    final pageLayer = PageLayer(
+      builders: widget.router.pages,
+      states: state.pageStates,
+      onPopPage: () => widget.router.pop(),
+    );
+
+    final pageLayerWithDrawer = Scaffold(
+      drawer: widget.router.drawer?.call(),
+      onDrawerChanged: (isOpened) {
+        if (isOpened && !state.drawerIsOpen) {
+          widget.router.slideIn();
+        } else if (!isOpened && state.drawerIsOpen) {
+          widget.router.slideOut();
+        }
+      },
+      key: widget.router.drawerKey,
+      body: pageLayer,
+    );
+
     final stack = Stack(
       children: [
-        PageLayer(
-          builders: widget.router.pages,
-          states: state.pageStates,
-          onPopPage: () => widget.router.pop(),
-        ),
+        pageLayerWithDrawer,
         DialogLayer(
           builders: widget.router.dialogs,
           states: state.dialogStates,

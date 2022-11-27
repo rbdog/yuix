@@ -21,3 +21,8 @@
 - add YuiTabBarStyle
 - add YuiTabEdge
   
+## 2.2.0
+
+- add drawer
+- add slideIn()
+- add slideOut()
