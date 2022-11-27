@@ -30,3 +30,8 @@
 ## 2.2.1
 
 - add AppCycleEvent
+
+## 2.2.2
+
+- add: YuiTabRouter.slideIn()
+- add: YuiTabRouter.slideOut()

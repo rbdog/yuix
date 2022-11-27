@@ -37,8 +37,20 @@ class YuiDefaultTabRoute extends YuiPureTabRoute {
           ),
       ],
     );
-    return Scaffold(
+
+    final bodyWithDrawer = Scaffold(
+      drawer: router.drawer?.call(),
+      onDrawerChanged: (isOpened) {
+        if (isOpened && !router.state.value.drawerIsOpen) {
+          router.slideIn();
+        } else if (!isOpened && router.state.value.drawerIsOpen) {
+          router.slideOut();
+        }
+      },
+      key: router.drawerKey,
       body: body,
     );
+
+    return bodyWithDrawer;
   }
 }

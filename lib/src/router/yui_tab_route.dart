@@ -12,8 +12,19 @@ class YuiPureTabRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final bodyWithDrawer = Scaffold(
+      drawer: router.drawer?.call(),
+      onDrawerChanged: (isOpened) {
+        if (isOpened && !router.state.value.drawerIsOpen) {
+          router.slideIn();
+        } else if (!isOpened && router.state.value.drawerIsOpen) {
+          router.slideOut();
+        }
+      },
+      key: router.drawerKey,
       body: YuiTabBody(router),
     );
+
+    return bodyWithDrawer;
   }
 }
