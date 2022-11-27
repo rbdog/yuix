@@ -26,3 +26,7 @@
 - add drawer
 - add slideIn()
 - add slideOut()
+
+## 2.2.1
+
+- add AppCycleEvent

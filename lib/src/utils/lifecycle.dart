@@ -4,20 +4,29 @@
 
 import 'package:flutter/scheduler.dart';
 
-// イベントの観測者
+/// AppCycle イベント
+enum AppCycleEvent {
+  toBackground,
+  toForeground,
+  other,
+}
+
+/// イベントの観測者
 class LifecycleHook {
-  // ID
-  final String id;
-  // 監視したいイベント
-  final AppLifecycleState state;
-  // イベント発生時
-  final void Function() onLifecycleEvent;
-  // コンストラクタ
   const LifecycleHook(
     this.id,
-    this.state,
-    this.onLifecycleEvent,
+    this.event,
+    this.onEvent,
   );
+
+  /// ID
+  final String id;
+
+  /// 監視したいイベント
+  final AppCycleEvent event;
+
+  /// イベント発生時
+  final void Function() onEvent;
 }
 
 class Lifecycle {
@@ -35,11 +44,26 @@ class Lifecycle {
 
   // Widget から イベント通知を受ける
   void notifyLifecycle(AppLifecycleState state) {
+    late final AppCycleEvent targetEvent;
+    switch (state) {
+      case AppLifecycleState.paused:
+        targetEvent = AppCycleEvent.toBackground;
+        break;
+      case AppLifecycleState.resumed:
+        targetEvent = AppCycleEvent.toForeground;
+        break;
+      case AppLifecycleState.inactive:
+        targetEvent = AppCycleEvent.other;
+        break;
+      case AppLifecycleState.detached:
+        targetEvent = AppCycleEvent.other;
+        break;
+    }
+    // 対象のオブサーバーたち
+    final targetHooks = _hooks.where((e) => e.event == targetEvent);
     // オブザーバーたちに知らせる
-    for (var hook in _hooks) {
-      if (hook.state == state) {
-        hook.onLifecycleEvent();
-      }
+    for (var hook in targetHooks) {
+      hook.onEvent();
     }
   }
 }
