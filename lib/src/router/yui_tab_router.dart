@@ -48,6 +48,9 @@ class YuiTabRouter implements YuiRouterProtocol {
 
   /// Switch Tab
   void select(String path) {
+    if (state.value == path) {
+      return;
+    }
     state.value = path;
   }
 

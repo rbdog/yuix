@@ -21,6 +21,7 @@ class YuiTabBody extends StatefulWidget {
 class YuiTabBodyState extends State<YuiTabBody> {
   late final PageController controller;
   YuiTabRouter get router => widget.router;
+  var animatingCount = 0;
 
   @override
   void initState() {
@@ -37,12 +38,14 @@ class YuiTabBodyState extends State<YuiTabBody> {
     super.dispose();
   }
 
-  void updateState() {
-    controller.animateToPage(
+  void updateState() async {
+    animatingCount += 1;
+    await controller.animateToPage(
       router.selectedIndex,
       duration: const Duration(milliseconds: 200),
       curve: Curves.linear,
     );
+    animatingCount -= 1;
   }
 
   @override
@@ -60,7 +63,13 @@ class YuiTabBodyState extends State<YuiTabBody> {
         return router.pages.values.toList()[index](itemState);
       },
       onPageChanged: (index) {
-        router.selectIndex(index);
+        // onPageChanged is unexpectedly called during animation with animateToPage
+        // https://github.com/flutter/flutter/issues/43813
+        // if use flag, multi animation is not controlled
+
+        if (animatingCount == 0) {
+          router.selectIndex(index);
+        }
       },
     );
 

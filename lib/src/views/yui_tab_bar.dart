@@ -53,7 +53,7 @@ class _YuiTabBarState extends State<YuiTabBar> {
             paths.length,
             (index) {
               final path = paths[index];
-              final isSelected = router.selectedIndex == index;
+              final isSelected = router.selectedPath == path;
               final itemState = YuiTabState(
                 index: index,
                 isSelected: isSelected,
