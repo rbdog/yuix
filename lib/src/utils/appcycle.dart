@@ -5,15 +5,15 @@
 import 'package:flutter/scheduler.dart';
 
 /// AppCycle イベント
-enum AppCycleEvent {
+enum AppcycleEvent {
   toBackground,
   toForeground,
   other,
 }
 
 /// イベントの観測者
-class LifecycleHook {
-  const LifecycleHook(
+class AppcycleHook {
+  const AppcycleHook(
     this.id,
     this.event,
     this.onEvent,
@@ -23,17 +23,17 @@ class LifecycleHook {
   final String id;
 
   /// 監視したいイベント
-  final AppCycleEvent event;
+  final AppcycleEvent event;
 
   /// イベント発生時
   final void Function() onEvent;
 }
 
-class Lifecycle {
-  final List<LifecycleHook> _hooks = [];
+class Appcycle {
+  final List<AppcycleHook> _hooks = [];
 
   // フックイベントを追加
-  void addHook(LifecycleHook hook) {
+  void addHook(AppcycleHook hook) {
     _hooks.add(hook);
   }
 
@@ -44,19 +44,19 @@ class Lifecycle {
 
   // Widget から イベント通知を受ける
   void notifyLifecycle(AppLifecycleState state) {
-    late final AppCycleEvent targetEvent;
+    late final AppcycleEvent targetEvent;
     switch (state) {
       case AppLifecycleState.paused:
-        targetEvent = AppCycleEvent.toBackground;
+        targetEvent = AppcycleEvent.toBackground;
         break;
       case AppLifecycleState.resumed:
-        targetEvent = AppCycleEvent.toForeground;
+        targetEvent = AppcycleEvent.toForeground;
         break;
       case AppLifecycleState.inactive:
-        targetEvent = AppCycleEvent.other;
+        targetEvent = AppcycleEvent.other;
         break;
       case AppLifecycleState.detached:
-        targetEvent = AppCycleEvent.other;
+        targetEvent = AppcycleEvent.other;
         break;
     }
     // 対象のオブサーバーたち

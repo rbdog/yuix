@@ -18,20 +18,21 @@ void onLifecycleEvent(AppLifecycleState state) {
 }
 */
 
-class LifecycleView extends StatefulWidget {
-  final Widget child;
-  final Lifecycle lifecycle;
-  const LifecycleView({
-    required this.lifecycle,
-    required this.child,
+class AppcycleView extends StatefulWidget {
+  const AppcycleView({
     Key? key,
+    required this.cycle,
+    required this.child,
   }) : super(key: key);
 
+  final Appcycle cycle;
+  final Widget child;
+
   @override
-  LifecycleViewState createState() => LifecycleViewState();
+  AppcycleViewState createState() => AppcycleViewState();
 }
 
-class LifecycleViewState extends State<LifecycleView>
+class AppcycleViewState extends State<AppcycleView>
     with WidgetsBindingObserver {
   @override
   void initState() {
@@ -49,7 +50,7 @@ class LifecycleViewState extends State<LifecycleView>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    widget.lifecycle.notifyLifecycle(state);
+    widget.cycle.notifyLifecycle(state);
   }
 
   @override
@@ -60,9 +61,9 @@ class LifecycleViewState extends State<LifecycleView>
   // Web Lifecycle
   void onVisibilityChange(Event e) {
     if (document.visibilityState == 'hidden') {
-      widget.lifecycle.notifyLifecycle(AppLifecycleState.paused);
+      widget.cycle.notifyLifecycle(AppLifecycleState.paused);
     } else if (document.visibilityState == 'visible') {
-      widget.lifecycle.notifyLifecycle(AppLifecycleState.resumed);
+      widget.cycle.notifyLifecycle(AppLifecycleState.resumed);
     }
   }
 }
