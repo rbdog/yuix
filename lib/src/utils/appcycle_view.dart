@@ -1,31 +1,21 @@
 import 'package:flutter/material.dart';
-// ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
-import 'package:yuix/src/utils/lifecycle.dart';
 
-/*
-void onLifecycleEvent(AppLifecycleState state) {
-  switch (state) {
-    case AppLifecycleState.resumed:
-      break;
-    case AppLifecycleState.inactive:
-      break;
-    case AppLifecycleState.paused:
-      break;
-    case AppLifecycleState.detached:
-      break;
-  }
+/// AppCycle イベント
+enum AppcycleEvent {
+  toBackground,
+  toForeground,
+  other,
 }
-*/
 
 class AppcycleView extends StatefulWidget {
   const AppcycleView({
-    Key? key,
-    required this.cycle,
+    super.key,
+    required this.onAppcycle,
     required this.child,
-  }) : super(key: key);
+  });
 
-  final Appcycle cycle;
+  final void Function(AppcycleEvent event) onAppcycle;
   final Widget child;
 
   @override
@@ -43,14 +33,9 @@ class AppcycleViewState extends State<AppcycleView>
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     document.removeEventListener("visibilitychange", onVisibilityChange);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    widget.cycle.notifyLifecycle(state);
   }
 
   @override
@@ -58,12 +43,36 @@ class AppcycleViewState extends State<AppcycleView>
     return widget.child;
   }
 
-  // Web Lifecycle
+  // Mobile
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!mounted) {
+      return;
+    }
+    switch (state) {
+      case AppLifecycleState.resumed:
+        widget.onAppcycle(AppcycleEvent.toForeground);
+        break;
+      case AppLifecycleState.paused:
+        widget.onAppcycle(AppcycleEvent.toBackground);
+        break;
+      default:
+        widget.onAppcycle(AppcycleEvent.other);
+        break;
+    }
+  }
+
+  // Web
   void onVisibilityChange(Event e) {
+    if (!mounted) {
+      return;
+    }
     if (document.visibilityState == 'hidden') {
-      widget.cycle.notifyLifecycle(AppLifecycleState.paused);
+      widget.onAppcycle(AppcycleEvent.toBackground);
     } else if (document.visibilityState == 'visible') {
-      widget.cycle.notifyLifecycle(AppLifecycleState.resumed);
+      widget.onAppcycle(AppcycleEvent.toForeground);
+    } else {
+      widget.onAppcycle(AppcycleEvent.other);
     }
   }
 }

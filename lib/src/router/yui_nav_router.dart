@@ -92,6 +92,34 @@ class YuiNavRouter implements YuiRouterProtocol {
     state.value = newState;
   }
 
+  /// replace page stack
+  void replace(List<String> paths) {
+    final pageStates = paths.map((path) {
+      final patternParams = path2PatternParams(
+        path,
+        pages.keys.toList(),
+      );
+      if (patternParams == null) {
+        throw Exception('Not found page for $path');
+      }
+      final pageState = YuiPageState(
+        pattern: patternParams.pattern,
+        path: path,
+        params: patternParams.params,
+      );
+
+      return pageState;
+    }).toList();
+
+    final newState = YuiNavRouterState(
+      pageStates: pageStates,
+      dialogStates: state.value.dialogStates,
+      tasks: state.value.tasks,
+      drawerIsOpen: state.value.drawerIsOpen,
+    );
+    state.value = newState;
+  }
+
   /// Back page (until: pattern)
   void pop({String? until}) {
     if (state.value.pageStates.length <= 1) return;

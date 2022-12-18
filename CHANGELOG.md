@@ -4,16 +4,16 @@
 
 ## 1.0.1
 
-- Fix: rename
+- fix: rename
 
 ## 1.0.2
 
-- Add: HttpApi
-- Add: HttpServer
+- add: HttpApi
+- add: HttpServer
 
 ## 2.0.0
 
-- Add: YuiTabRouter
+- add: YuiTabRouter
 - (breaking) refactor some class names
 
 ## 2.1.0
@@ -35,3 +35,7 @@
 
 - add: YuiTabRouter.slideIn()
 - add: YuiTabRouter.slideOut()
+
+## 2.2.3
+
+- fix: bugs
