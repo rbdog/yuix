@@ -18,7 +18,7 @@ abstract class HttpRequest {
 
 class HttpApi<RequestT extends HttpRequest, ResBodyT> {
   final String baseUrl;
-  final ResBodyT Function(dynamic json) jsonToRes;
+  final ResBodyT Function(String json) jsonToRes;
   HttpApi({
     required this.baseUrl,
     required this.jsonToRes,
@@ -53,8 +53,7 @@ class HttpApi<RequestT extends HttpRequest, ResBodyT> {
         break;
     }
 
-    final resJson = jsonDecode(rawResBody);
-    final ResBodyT resBody = jsonToRes(resJson);
+    final ResBodyT resBody = jsonToRes(rawResBody);
     return resBody;
   }
 }

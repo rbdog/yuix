@@ -44,7 +44,7 @@ class HttpServer {
   });
 
   HttpApi<RequestT, ResBodyT> api<RequestT extends HttpRequest, ResBodyT>(
-    ResBodyT Function(dynamic json) jsonToRes,
+    ResBodyT Function(String jsonString) jsonToRes,
   ) {
     return HttpApi<RequestT, ResBodyT>(baseUrl: url, jsonToRes: jsonToRes);
   }
@@ -55,7 +55,7 @@ class DisabledHttpServer extends HttpServer {
 
   @override
   HttpApi<RequestT, ResBodyT> api<RequestT extends HttpRequest, ResBodyT>(
-    ResBodyT Function(dynamic json) jsonToRes,
+    ResBodyT Function(String jsonString) jsonToRes,
   ) {
     return DisabledHttpApi();
   }
